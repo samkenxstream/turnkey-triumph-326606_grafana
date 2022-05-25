@@ -9,10 +9,8 @@ module.exports = {
   transform: {
     '^.+\\.(ts|tsx|js|jsx)$': require.resolve('ts-jest'),
   },
-  transformIgnorePatterns: [
-    'node_modules/(?!(ol)/)', // <- exclude the open layers library
-  ],
-  moduleDirectories: ['node_modules', 'public'],
+  transformIgnorePatterns: [],
+  moduleDirectories: ['public'],
   roots: ['<rootDir>/public/app', '<rootDir>/public/test', '<rootDir>/packages'],
   testRegex: '(\\.|/)(test)\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
@@ -25,6 +23,8 @@ module.exports = {
     __webpack_public_path__: '', // empty string
   },
   moduleNameMapper: {
+    // https://github.com/microsoft/accessibility-insights-web/pull/5421#issuecomment-1109168149
+    uuid: require.resolve('uuid'),
     '\\.svg': '<rootDir>/public/test/mocks/svg.ts',
     '\\.css': '<rootDir>/public/test/mocks/style.ts',
     'monaco-editor/esm/vs/editor/editor.api': '<rootDir>/public/test/mocks/monaco.ts',
@@ -37,5 +37,4 @@ module.exports = {
     // Because we mock out <Trans /> anyway, we can mock the messages also
     'locales/\\w+/messages$': '<rootDir>/public/test/mocks/i18nMessages.ts',
   },
-  watchPathIgnorePatterns: ['<rootDir>/node_modules/'],
 };
